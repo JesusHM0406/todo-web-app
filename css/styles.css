@@ -10,7 +10,7 @@
   --black-accent: #101;
   --white-accent: #edf;
   --text-color: #fff;
-  --danger: #d22;
+  --danger: #e33;
 }
 
 /* =====  GENERAL SECTION ===== */
@@ -31,6 +31,7 @@ button{
   border-style: solid;
   cursor: pointer;
   font-family: 'Stack Sans Text';
+  transition: background-color .3s ease;
 }
 
 /* ====== MAIN SECTION ====== */
@@ -80,11 +81,17 @@ button{
   padding: 6px 10px;
   border: 2px solid #ccc;
   font-size: .7rem;
+  transition: border-color .5s ease;
 }
 
 #taskInput::placeholder{
   font-family: 'Stack Sans Text';
   font-size: .7rem;
+}
+
+#taskInput:focus{
+  outline: none;
+  border-color: var(--main-color);
 }
 
 #addBtn{
@@ -94,6 +101,10 @@ button{
   font-weight: bold;
   letter-spacing: 1px;
   text-transform: uppercase;
+}
+
+#addBtn:hover{
+  background-color: #427;
 }
 
 /* === FILTER SECTION ===  */
@@ -111,6 +122,10 @@ button{
   text-transform: uppercase;
   font-weight: bold;
   letter-spacing: 1px;
+}
+
+.filter-btn:hover{
+  background-color: #ddd;
 }
 
 .filter-btn.active{
@@ -135,6 +150,12 @@ button{
   justify-content: center;
   background-color: #f5f5f5;
   padding: 10px 12px;
+  transition: background-color .2s ease, transform .2s ease;
+}
+
+.content__todo-item:hover{
+  background-color: #eaeaea;
+  transform: translateY(-2px);
 }
 
 .task-checkbox{
@@ -168,4 +189,8 @@ button{
   font-weight: bold;
   letter-spacing: 1px;
   font-size: .75rem;
+}
+
+.clear-btn:hover, .delete-btn:hover{
+  background-color: #b11;
 }
