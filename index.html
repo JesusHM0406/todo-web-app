@@ -1,12 +1,43 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viweport" content="width=device-width, initial-scale=1">
     <title>Todo App</title>
   </head>
   <body>
-    
+    <main class="main">
+      <h1 class="title">My tasks</h1>
+
+      <div class="content">
+        <div class="content__pending-counter">
+          <span>0 Pending tasks</span>
+        </div>
+
+        <div class="content__header">
+          <input type="text" id="taskInput" placeholder="Add a new task..." autocomplete="off">
+          <button id="addBtn">Add</button>
+        </div>
+
+        <div class="content__filter">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="active">Active</button>
+          <button class="filter-btn" data-filter="completed">Completed</button>
+        </div>
+
+        <div class="content__todo">
+          <ul class="content__todo-list">
+            <li class="content__todo-item">
+              <input type="checkbox" name="taskCheckbox" id="taskCheckbox" checked>
+              <span class="todo__text">Learn JS</span>
+              <button class="delete-btn">Delete</button>
+            </li>
+          </ul>
+        </div>
+
+        <button id="clearCompleted" class="clear-btn">Clear completed</button>
+      </div>
+    </main>
   </body>
 </html>
