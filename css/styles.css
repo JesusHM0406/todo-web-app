@@ -3,3 +3,154 @@
   padding: 0;
   margin: 0;
 }
+
+:root{
+  font-size: 16px;
+  --main-color: #538;
+  --black-accent: #18101f;
+  --white-accent: #edf;
+  --text-color: #fff;
+}
+
+/* =====  GENERAL SECTION ===== */
+
+body{
+  min-height: 100vh;
+  font-family: 'Stack Sans Text';
+  background-color:var(--main-color);
+  color: var(--text-color);
+}
+
+ul{
+  list-style: none;
+}
+
+button{
+  border-color: transparent;
+  border-style: solid;
+  cursor: pointer;
+  font-family: 'Stack Sans Text';
+}
+
+/* ====== MAIN SECTION ====== */
+
+.main{
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+  padding-top: 50px;
+  text-align: center;
+}
+
+.title{
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+}
+
+/* ===== CONTENT SECTION ===== */
+
+.content{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.content__container{
+  background-color: #fff;
+  color: var(--black-accent);
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 2px solid transparent;
+}
+
+.content__pending-counter{
+  width: fit-content;
+  margin: auto;
+  font-size: .7rem;
+  padding: 6px 10px;
+}
+
+#taskInput{
+  width: 100%;
+  padding: 4px 8px;
+  border: 2px solid var(--main-color);
+  font-size: .7rem;
+}
+
+#taskInput::placeholder{
+  font-family: 'Stack Sans Text';
+  font-size: .7rem;
+}
+
+#addBtn{
+  padding: 5px 8px;
+  background-color: var(--main-color);
+  color: var(--white-accent);
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* === FILTER SECTION ===  */
+
+.content__filter{
+  gap: 20px;
+  width: fit-content;
+  margin: auto;
+}
+
+.filter-btn{
+  border-color: var(--main-color);
+  padding: 6px 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+  background-color: var(--white-accent);
+}
+
+/* === TODO SECTION === */
+
+.content__todo-list{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  gap: 20px;
+}
+
+.content__todo-item{
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--white-accent);
+  padding: 8px 12px;
+}
+
+.todo__text{
+  flex: 1;
+}
+
+.delete-btn {
+  padding: 6px 10px;
+  background-color: var(--main-color);
+  color: var(--text-color);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
+/* ==== CLEAR COMPLETED SECTION ==== */
+
+.clear-btn{
+  width: fit-content;
+  margin: auto;
+  padding: 8px 12px;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-size: .75rem;
+}
