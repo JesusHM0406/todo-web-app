@@ -36,19 +36,37 @@ function addTask(){
 };
 
 function showTodos(){
-  let todosHTML = '';
+  container.innerHTML = '';
+
+  const fragment = document.createDocumentFragment();
 
   todos.forEach(t =>{
-    todosHTML += `
-    <li class="content__todo-item">
+    const liItem = document.createElement('li');
+    liItem.classList.add('content__todo-item');
+
+    liItem.innerHTML = `
       <input type="checkbox" name="taskCheckbox" class="task-checkbox" ${t.isCompleted ? 'checked' : ''}>
       <span class="todo__text">${t.name}</span>
       <button class="delete-btn">Delete</button>
-    </li>
     `;
+
+    liItem.querySelector('.task-checkbox').addEventListener('click', ()=>{
+      toggleTodo(t.id);
+      showTodos();
+    });
+
+    fragment.appendChild(liItem);
   });
 
-  container.innerHTML = todosHTML;
+  container.appendChild(fragment);
+};
+
+function toggleTodo(id){
+  const todo = todos.find(t => t.id === id);
+
+  if (!todo) return;
+
+  todo.isCompleted = !todo.isCompleted;
 };
 
 addBtn.addEventListener('click', ()=>{
