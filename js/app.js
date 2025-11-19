@@ -11,6 +11,7 @@ const addBtn = document.getElementById('addBtn');
 const filterBtns = document.querySelectorAll('.filter-btn');
 const deleteBtns = document.querySelectorAll('.delete-btn');
 const clearBtn = document.getElementById('clearCompleted');
+const container = document.querySelector('.content__todo-list');
 
 function genereteId(){
   return Date.now();
@@ -34,4 +35,23 @@ function addTask(){
   todoInput.value = '';
 };
 
-addBtn.addEventListener('click',addTask);
+function showTodos(){
+  let todosHTML = '';
+
+  todos.forEach(t =>{
+    todosHTML += `
+    <li class="content__todo-item">
+      <input type="checkbox" name="taskCheckbox" class="task-checkbox" ${t.isCompleted ? 'checked' : ''}>
+      <span class="todo__text">${t.name}</span>
+      <button class="delete-btn">Delete</button>
+    </li>
+    `;
+  });
+
+  container.innerHTML = todosHTML;
+};
+
+addBtn.addEventListener('click', ()=>{
+  addTask();
+  showTodos();
+});
