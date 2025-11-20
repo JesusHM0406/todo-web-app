@@ -49,6 +49,12 @@ function removeTask(id){
   saveTodos();
 };
 
+function clearTasks(){
+  todos = todos.filter(t => t.isCompleted !== true);
+
+  saveTodos();
+};
+
 function showTodos(){
   container.innerHTML = '';
 
@@ -170,7 +176,12 @@ todoInput.addEventListener('keypress', (e)=>{
     addTask();
     showTodos();
   }
-})
+});
+
+clearBtn.addEventListener('click', ()=>{
+  clearTasks();
+  showTodos();
+});
 
 // =========== INITIALIZATION =========== //
 
