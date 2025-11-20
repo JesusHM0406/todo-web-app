@@ -13,6 +13,8 @@ const deleteBtns = document.querySelectorAll('.delete-btn');
 const clearBtn = document.getElementById('clearCompleted');
 const container = document.querySelector('.content__todo-list');
 
+console.log(filterBtns);
+
 // =========== PRINCIPAL FUNCTIONS =========== //
 
 function genereteId(){
@@ -113,10 +115,34 @@ function loadTodos(){
   }
 };
 
+// =========== EVENT LISTENERS =========== //
+
 addBtn.addEventListener('click', ()=>{
   addTask();
   showTodos();
 });
+
+filterBtns.forEach(btn => {
+  let filter = btn.dataset.filter;
+
+  if (filter !== 'all' && filter !== 'active' && filter !== 'completed'){
+    filter = 'all';
+  }
+
+  btn.addEventListener('click',()=>{
+    if(currentFilter === filter) return; // Avoid reloading as it is unnecessary
+
+    currentFilter = filter;
+
+    filterBtns.forEach(btn => btn.classList.remove('active'));
+
+    btn.classList.add('active');
+
+    showTodos();
+  });
+});
+
+// =========== INITIALIZATION =========== //
 
 loadTodos();
 showTodos();
