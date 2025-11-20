@@ -13,6 +13,8 @@ const deleteBtns = document.querySelectorAll('.delete-btn');
 const clearBtn = document.getElementById('clearCompleted');
 const container = document.querySelector('.content__todo-list');
 
+// =========== PRINCIPAL FUNCTIONS =========== //
+
 function genereteId(){
   return Date.now();
 };
@@ -67,6 +69,30 @@ function toggleTodo(id){
   if (!todo) return;
 
   todo.isCompleted = !todo.isCompleted;
+};
+
+// =========== PERSISTANCE FUNCTIONS =========== //
+
+function saveTodos(){
+  localStorage.setItem('todos', JSON.stringify(todos));
+}
+
+function loadTodos(){
+  try{
+    const todosJSON = localStorage.getItem('todos');
+
+    if(todosJSON){
+      todos = JSON.parse(todosJSON);
+    } else{
+      todos = [];
+    }
+  } catch(e){
+    todos = [];
+  }
+
+  if(!Array.isArray(todos)){
+    todos = [];
+  }
 };
 
 addBtn.addEventListener('click', ()=>{
