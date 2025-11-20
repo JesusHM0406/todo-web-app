@@ -34,6 +34,8 @@ function addTask(){
 
   todos.push(newTodo);
 
+  saveTodos();
+
   todoInput.value = '';
 };
 
@@ -69,6 +71,8 @@ function toggleTodo(id){
   if (!todo) return;
 
   todo.isCompleted = !todo.isCompleted;
+
+  saveTodos();
 };
 
 // =========== PERSISTANCE FUNCTIONS =========== //
@@ -99,3 +103,6 @@ addBtn.addEventListener('click', ()=>{
   addTask();
   showTodos();
 });
+
+loadTodos();
+showTodos();
