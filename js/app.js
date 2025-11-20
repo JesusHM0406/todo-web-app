@@ -13,8 +13,6 @@ const deleteBtns = document.querySelectorAll('.delete-btn');
 const clearBtn = document.getElementById('clearCompleted');
 const container = document.querySelector('.content__todo-list');
 
-console.log(filterBtns);
-
 // =========== PRINCIPAL FUNCTIONS =========== //
 
 function genereteId(){
@@ -41,6 +39,16 @@ function addTask(){
   todoInput.value = '';
 };
 
+function removeTask(id){
+  const taskExists = todos.some(t => t.id === id);
+
+  if (!taskExists) return;
+
+  todos = todos.filter(t => t.id !== id);
+
+  saveTodos();
+};
+
 function showTodos(){
   container.innerHTML = '';
 
@@ -60,6 +68,11 @@ function showTodos(){
 
     liItem.querySelector('.task-checkbox').addEventListener('click', ()=>{
       toggleTodo(t.id);
+      showTodos();
+    });
+
+    liItem.querySelector('.delete-btn').addEventListener('click',()=>{
+      removeTask(t.id);
       showTodos();
     });
 
