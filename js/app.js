@@ -16,7 +16,7 @@ const container = document.querySelector('.content__todo-list');
 // =========== PRINCIPAL FUNCTIONS =========== //
 
 function genereteId(){
-  return Date.now();
+  return String(Date.now());
 };
 
 function addTask(){
@@ -61,20 +61,10 @@ function showTodos(){
     liItem.classList.add('content__todo-item');
 
     liItem.innerHTML = `
-      <input type="checkbox" name="taskCheckbox" class="task-checkbox" ${t.isCompleted ? 'checked' : ''}>
+      <input type="checkbox" name="taskCheckbox" class="task-checkbox" ${t.isCompleted ? 'checked' : ''} data-id="${t.id}">
       <span class="todo__text">${t.name}</span>
-      <button class="delete-btn">Delete</button>
+      <button class="delete-btn" data-id="${t.id}">Delete</button>
     `;
-
-    liItem.querySelector('.task-checkbox').addEventListener('click', ()=>{
-      toggleTodo(t.id);
-      showTodos();
-    });
-
-    liItem.querySelector('.delete-btn').addEventListener('click',()=>{
-      removeTask(t.id);
-      showTodos();
-    });
 
     fragment.appendChild(liItem);
   });
@@ -132,6 +122,26 @@ function loadTodos(){
 
 addBtn.addEventListener('click', ()=>{
   addTask();
+  showTodos();
+});
+
+container.addEventListener('click', (e)=> {
+  const target = e.target;
+  const todoItem = target.closest('.content__todo-item');
+
+  if (!todoItem) return;
+
+  const todoId = target.dataset.id;
+
+  if (!todoId) return;
+
+  if(target.classList.contains('task-checkbox')){
+    toggleTodo(todoId);
+  }
+  else if (target.classList.contains('delete-btn')){
+    removeTask(todoId);
+  }
+
   showTodos();
 });
 
