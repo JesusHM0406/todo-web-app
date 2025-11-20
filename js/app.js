@@ -165,6 +165,13 @@ filterBtns.forEach(btn => {
   });
 });
 
+todoInput.addEventListener('keypress', (e)=>{
+  if (e.key === 'Enter'){
+    addTask();
+    showTodos();
+  }
+})
+
 // =========== INITIALIZATION =========== //
 
 loadTodos();
