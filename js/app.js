@@ -44,7 +44,9 @@ function showTodos(){
 
   const fragment = document.createDocumentFragment();
 
-  todos.forEach(t =>{
+  const filteredTodos = getFilteredTodos();
+
+  filteredTodos.forEach(t =>{
     const liItem = document.createElement('li');
     liItem.classList.add('content__todo-item');
 
@@ -73,6 +75,18 @@ function toggleTodo(id){
   todo.isCompleted = !todo.isCompleted;
 
   saveTodos();
+};
+
+function getFilteredTodos(){
+  if(currentFilter === 'active'){
+    return todos.filter(t => t.isCompleted === false);
+  }
+
+  if(currentFilter === 'completed'){
+    return todos.filter(t => t.isCompleted === true);
+  }
+
+  return todos;
 };
 
 // =========== PERSISTANCE FUNCTIONS =========== //
