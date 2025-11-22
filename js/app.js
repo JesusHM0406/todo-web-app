@@ -13,6 +13,7 @@ const filterBtns = document.querySelectorAll('.filter-btn');
 const deleteBtns = document.querySelectorAll('.delete-btn');
 const clearBtn = document.getElementById('clearCompleted');
 const container = document.querySelector('.content__todo-list');
+const togglerBtn = document.getElementById('togglerBtn');
 
 // =========== PRINCIPAL FUNCTIONS =========== //
 
@@ -239,13 +240,32 @@ function showNotification(message, type){
 // =========== TOGGLE THEME =========== //
 
 function toggleTheme(){
+  const icon = togglerBtn.querySelector('.material-symbols-rounded');
+  
   if (currentTheme === 'light') {
     currentTheme = 'dark';
+    
     document.body.classList.add('dark-mode');
+
+    icon.classList.add('dark', 'transitioning');
+
+    icon.addEventListener('transitionend', ()=>{
+      icon.textContent = 'dark_mode';
+      icon.classList.remove('transitioning');
+    });
   }
   else {
     currentTheme = 'light';
+
     document.body.classList.remove('dark-mode');
+  
+    icon.classList.remove('dark');
+    icon.classList.add( 'transitioning');
+
+    icon.addEventListener('transitionend', ()=>{
+      icon.textContent = 'light_mode';
+      icon.classList.remove('transitioning');
+    });
   }
 }
 
@@ -311,6 +331,10 @@ clearBtn.addEventListener('click', ()=>{
   if (todoLenght === todos.length) return;
 
   showTodos();
+});
+
+togglerBtn.addEventListener('click', ()=>{
+  toggleTheme();
 });
 
 // =========== INITIALIZATION =========== //
