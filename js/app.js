@@ -2,6 +2,7 @@
 
 let todos = [];
 let currentFilter = 'all';
+let currentTheme = 'light';
 
 // =========== SELECTORS =========== //
 
@@ -234,6 +235,19 @@ function showNotification(message, type){
     closeNotification(notification);
   }, 5000);
 };
+
+// =========== TOGGLE THEME =========== //
+
+function toggleTheme(){
+  if (currentTheme === 'light') {
+    currentTheme = 'dark';
+    document.body.classList.add('dark-mode');
+  }
+  else {
+    currentTheme = 'light';
+    document.body.classList.remove('dark-mode');
+  }
+}
 
 // =========== EVENT LISTENERS =========== //
 
