@@ -66,7 +66,11 @@ function removeTask(id){
 };
 
 function clearTasks(){
+  const todoLenght = todos.length;
+
   todos = todos.filter(t => t.isCompleted !== true);
+
+  if (todoLenght === todos.length) return;
 
   saveTodos();
 
@@ -286,7 +290,12 @@ todoInput.addEventListener('keypress', (e)=>{
 });
 
 clearBtn.addEventListener('click', ()=>{
+  const todoLenght = todos.length;
+
   clearTasks();
+  
+  if (todoLenght === todos.length) return;
+
   showTodos();
 });
 
