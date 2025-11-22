@@ -94,7 +94,7 @@ function showTodos(){
 
   if (filteredTodos.length === 0){
     container.innerHTML = `
-      <li class="empty-todo">There is no tasks with the "${currentFilter}" filter.</li>
+      <li class="empty-todo">There are no tasks with the "${currentFilter}" filter.</li>
     `;
     return;
   }
