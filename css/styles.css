@@ -104,7 +104,7 @@ button{
 }
 
 #addBtn:hover{
-  background-color: #427;
+  background-color: #316;
 }
 
 /* === FILTER SECTION ===  */
@@ -193,4 +193,46 @@ button{
 
 .clear-btn:hover, .delete-btn:hover{
   background-color: #b11;
+}
+
+/* ===== NOTIFICATIONS ===== */
+
+.notification{
+  position: fixed;
+  color: #fff;
+  background-color: #316d;
+  width: 320px;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+  padding: 10px 14px 14px 14px;
+  font-size: .75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  backdrop-filter: blur(5px);
+  border: 2px solid transparent;
+  box-shadow: 0 0 30px #316d;
+  transform: translateY(0);
+  transition: transform .5s ease-out;
+}
+
+.notification.error{
+  border-color: #f66;
+}
+
+.notification.error .material-symbols-rounded{
+  color: #f66;
+}
+
+.notification.succes{
+  border-color: #6b6;
+}
+
+.notification.succes .material-symbols-rounded{
+  color: #6b6;
+}
+
+.notification.hiding{
+  transform: translateY(-100px);
 }
