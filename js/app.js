@@ -141,7 +141,53 @@ function loadTodos(){
 
 // =========== NOTIFICATION FUNCTION =========== //
 
+const CONTAINER_ID = 'notification-stack-container';
+const MAX_NOTIFICATIONS = 3;
+
+function getNotificationsContainer(){
+  let notifContainer = document.getElementById(CONTAINER_ID);
+
+  if(!notifContainer){
+    notifContainer = document.createElement('div');
+    notifContainer.id = CONTAINER_ID;
+
+    document.querySelector('.main').appendChild(notifContainer);
+  }
+
+  return notifContainer;
+};
+
+function closeNotification(notification){
+  if (!notification) return;
+
+  notification.classList.add('is-removing');
+
+  notification.classList.remove('show');
+
+  notification.addEventListener('transitionend', function handler(){
+      notification.remove();
+
+      notification.removeEventListener('transitionend', handler);
+
+      const notifContainer = getNotificationsContainer();
+
+      if (notifContainer.children.length === 0) {
+        notifContainer.remove(); 
+      }
+    }, { once: true });
+}
+
 function showNotification(message, type){
+  const notifContainer = getNotificationsContainer();
+  const notifications = Array.from(notifContainer.children);
+  const activeNotifications = notifications.filter(n => !n.classList.contains('is-removing'));
+
+  if (notifications.length >= MAX_NOTIFICATIONS){
+    const oldestNotification = activeNotifications[0];
+
+    closeNotification(oldestNotification);
+  };
+
   const notification = document.createElement('div');
   notification.classList.add('notification', type);
 
@@ -154,14 +200,10 @@ function showNotification(message, type){
     <span class="notification__text">${message}</span>
   `;
 
-  document.querySelector('.main').appendChild(notification);
+  notifContainer.appendChild(notification);
 
   setTimeout(()=>{
-    notification.classList.remove('show');
-
-    notification.addEventListener('transitionend', ()=>{
-      notification.remove();
-    }, { once: true });
+    closeNotification(notification);
   }, 5000);
 };
 
