@@ -10,10 +10,18 @@
   font-size: 16px;
   --back-color: #c7ebf0;
   --text-color: #1f1a23;
-  --emphasis-color: #835b89; 
-  --black-emphasis-color: #58355e;
+  --emphasis-color: #58355e; 
+  --light-emphasis-color: #835b89;
   --black-back-color: #a6cfd6;
   --danger: #e33;
+}
+
+.dark-mode{
+  --back-color: #29182d;
+  --text-color: #e0cfd3;
+  --emphasis-color: var(--text-color); 
+  --light-emphasis-color: #9b6ca2;
+  --black-back-color: #5c4461;
 }
 
 /* =====  GENERAL SECTION ===== */
@@ -85,6 +93,7 @@ button{
   padding: 6px 10px;
   border: 2px solid transparent;
   background-color: var(--back-color);
+  color: inherit;
   font-size: .7rem;
   transition: border-color .5s ease;
 }
@@ -109,7 +118,7 @@ button{
 }
 
 #addBtn:hover{
-  background-color: var(--black-emphasis-color);
+  background-color: var(--light-emphasis-color);
 }
 
 /* === FILTER SECTION ===  */
@@ -130,12 +139,12 @@ button{
 }
 
 .filter-btn:hover{
-  background-color: var(--emphasis-color);
+  background-color: var(--light-emphasis-color);
   color: var(--back-color);
 }
 
 .filter-btn.active{
-  background-color: var(--black-emphasis-color);
+  background-color: var(--emphasis-color);
   color: var(--back-color);
 }
 
@@ -156,12 +165,13 @@ button{
   justify-content: center;
   background-color: var(--back-color);
   padding: 10px 12px;
-  transition: background-color .4s ease, transform .2s ease, box-shadow .2s ease;
+  transition: background-color .4s ease, transform .2s ease,border-color .2s ease;
+  border: 2px solid transparent;
 }
 
 .content__todo-item:hover{
-  box-shadow: 0 0 50px #835b8955;
   transform: translateY(-2px);
+  border-color: var(--emphasis-color);
 }
 
 .task-checkbox{
