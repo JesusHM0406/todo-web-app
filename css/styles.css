@@ -4,12 +4,16 @@
   margin: 0;
 }
 
+/* =====  VARIABLES ===== */
+
 :root{
   font-size: 16px;
-  --main-color: #538;
-  --black-accent: #101;
-  --white-accent: #edf;
-  --text-color: #fff;
+  --back-color: #c7ebf0;
+  --back-secondary-color: #c3a29e;
+  --text-color: #1f1a23;
+  --emphasis-color: #835b89; 
+  --black-emphasis-color: #58355e;
+  --border-color: #a6cfd6;
   --danger: #e33;
 }
 
