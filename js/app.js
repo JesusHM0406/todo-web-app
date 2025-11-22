@@ -22,13 +22,22 @@ function genereteId(){
 function addTask(){
   const todoName = todoInput.value;
 
-  if (todoName.trim() === '') return;
+  if (todoName.trim() === '') {
+    showNotification('Cannot add an empty task', 'error');
+    return;
+  }
 
-  if (typeof todoName !== 'string') return;
+  if (typeof todoName !== 'string') {
+    showNotification('Please use text to add a task', 'error');
+    return;
+  }
 
   const todoExists = todos.some(t => t.name === todoName.trim());
 
-  if (todoExists) return;
+  if (todoExists) {
+    showNotification('There is already a task with that name', 'error');
+    return;
+  }
 
   const newTodo = { id: genereteId(), name: todoName.trim(), isCompleted: false };
 
@@ -37,6 +46,8 @@ function addTask(){
   saveTodos();
 
   todoInput.value = '';
+
+  showNotification('The task has been succesfully added', 'success')
 };
 
 function removeTask(id){
@@ -122,6 +133,32 @@ function loadTodos(){
   if(!Array.isArray(todos)){
     todos = [];
   }
+};
+
+// =========== NOTIFICATION FUNCTION =========== //
+
+function showNotification(message, type){
+  const notification = document.createElement('div');
+  notification.classList.add('notification', type);
+
+  setTimeout(()=>{
+    notification.classList.add('show');
+  }, 0);
+
+  notification.innerHTML = `
+    <span class="material-symbols-rounded">${type === 'success' ? 'check_circle' : 'dangerous'}</span>
+    <span class="notification__text">${message}</span>
+  `;
+
+  document.querySelector('.main').appendChild(notification);
+
+  setTimeout(()=>{
+    notification.classList.remove('show');
+
+    notification.addEventListener('transitionend', ()=>{
+      notification.remove();
+    }, { once: true });
+  }, 5000);
 };
 
 // =========== EVENT LISTENERS =========== //

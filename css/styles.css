@@ -213,8 +213,12 @@ button{
   backdrop-filter: blur(5px);
   border: 2px solid transparent;
   box-shadow: 0 0 30px #316d;
-  transform: translateY(0);
+  transform: translateY(-200px);
   transition: transform .5s ease-out;
+}
+
+.notification.show{
+  transform: translateY(0);
 }
 
 .notification.error{
@@ -225,14 +229,10 @@ button{
   color: #f66;
 }
 
-.notification.succes{
+.notification.success{
   border-color: #6b6;
 }
 
-.notification.succes .material-symbols-rounded{
+.notification.success .material-symbols-rounded{
   color: #6b6;
-}
-
-.notification.hiding{
-  transform: translateY(-100px);
 }
