@@ -47,7 +47,7 @@ function addTask(){
 
   todoInput.value = '';
 
-  showNotification('The task has been succesfully added', 'success')
+  showNotification('The task has been successfully added', 'success')
 };
 
 function removeTask(id){
@@ -59,13 +59,15 @@ function removeTask(id){
 
   saveTodos();
 
-  showNotification('The task has been succesfully deleted', 'success');
+  showNotification('The task has been successfully deleted', 'success');
 };
 
 function clearTasks(){
   todos = todos.filter(t => t.isCompleted !== true);
 
   saveTodos();
+
+  showNotification('The completed tasks have been succesfully deleted', 'success');
 };
 
 function showTodos(){
