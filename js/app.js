@@ -75,11 +75,25 @@ function clearTasks(){
 };
 
 function showTodos(){
+  if (todos.length === 0){
+    container.innerHTML = `
+      <li class="empty-todo">The todo list is empty, please add a new task by clicking the add button.</li>
+    `;
+    return;
+  }
+
   container.innerHTML = '';
 
   const fragment = document.createDocumentFragment();
 
   const filteredTodos = getFilteredTodos();
+
+  if (filteredTodos.length === 0){
+    container.innerHTML = `
+      <li class="empty-todo">There is no tasks with the "${currentFilter}" filter.</li>
+    `;
+    return;
+  }
 
   filteredTodos.forEach(t =>{
     const liItem = document.createElement('li');

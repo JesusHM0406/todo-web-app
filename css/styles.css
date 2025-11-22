@@ -236,3 +236,10 @@ button{
 .notification.success .material-symbols-rounded{
   color: #6b6;
 }
+
+/* ===== EMPTY TODO ===== */
+
+.empty-todo{
+  font-size: .75rem;
+  text-align: center;
+}
