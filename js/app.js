@@ -58,6 +58,8 @@ function removeTask(id){
   todos = todos.filter(t => t.id !== id);
 
   saveTodos();
+
+  showNotification('The task has been succesfully deleted', 'success');
 };
 
 function clearTasks(){
