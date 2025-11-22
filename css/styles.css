@@ -20,6 +20,7 @@ body{
   font-family: 'Stack Sans Text';
   background-color:var(--main-color);
   color: var(--text-color);
+  padding: 20px 12px;
 }
 
 ul{
@@ -40,7 +41,6 @@ button{
   width: 100%;
   max-width: 500px;
   margin: auto;
-  padding-top: 50px;
   text-align: center;
 }
 
@@ -202,6 +202,7 @@ button{
   color: #fff;
   background-color: #316d;
   width: 320px;
+  margin: auto;
   top: 20px;
   right: 20px;
   z-index: 10;
@@ -242,4 +243,13 @@ button{
 .empty-todo{
   font-size: .75rem;
   text-align: center;
+}
+
+/* ===== QUERIES ===== */
+
+@media screen and (max-width: 600px) {
+  .notification{
+    right: 50%;
+    translate: 50% 0;
+  }
 }
