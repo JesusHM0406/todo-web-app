@@ -47,7 +47,9 @@ function addTask(){
 
   todoInput.value = '';
 
-  showNotification('The task has been successfully added', 'success')
+
+  showPendingTasks();
+  showNotification('The task has been successfully added', 'success');
 };
 
 function removeTask(id){
@@ -59,6 +61,7 @@ function removeTask(id){
 
   saveTodos();
 
+  showPendingTasks();
   showNotification('The task has been successfully deleted', 'success');
 };
 
@@ -67,6 +70,7 @@ function clearTasks(){
 
   saveTodos();
 
+  showPendingTasks();
   showNotification('The completed tasks have been succesfully deleted', 'success');
 };
 
@@ -114,6 +118,12 @@ function getFilteredTodos(){
 
   return todos;
 };
+
+function showPendingTasks(){
+  const pendingTasks = todos.length;
+
+  taskCount.textContent = `${pendingTasks} pending tasks`;
+}
 
 // =========== PERSISTANCE FUNCTIONS =========== //
 
@@ -270,3 +280,4 @@ clearBtn.addEventListener('click', ()=>{
 
 loadTodos();
 showTodos();
+showPendingTasks();
