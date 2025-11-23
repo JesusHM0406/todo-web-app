@@ -87,7 +87,6 @@ function clearTasks(){
   if (todoLength === todos.length) return;
 
   saveTodos();
-
   showPendingTasks();
   showNotification('The completed tasks have been succesfully deleted', 'success');
 };
@@ -132,11 +131,21 @@ function showTodos(){
 function toggleTodo(id){
   const todo = todos.find(t => t.id === id);
 
-  if (!todo) return;
+  if (!todo) return false;
 
   todo.isCompleted = !todo.isCompleted;
 
   saveTodos();
+
+  return true;
+};
+
+function handleToggleCompletedClick(id){
+  const updated = toggleTodo(id);
+
+  if (!updated) return;
+
+  showTodos();
 };
 
 function getFilteredTodos(){
@@ -296,7 +305,7 @@ container.addEventListener('click', (e)=> {
   if (!todoId) return;
 
   if(target.classList.contains('task-checkbox')){
-    toggleTodo(todoId);
+    handleToggleCompletedClick(todoId);
   }
   else if (target.classList.contains('delete-btn')){
     handleDeleteClick(todoId);
