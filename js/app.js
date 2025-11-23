@@ -57,17 +57,26 @@ function handleAddTask(){
   }
 };
 
-function removeTask(id){
+function deleteTodo(id){
   const taskExists = todos.some(t => t.id === id);
 
-  if (!taskExists) return;
+  if (!taskExists) return false;
 
   todos = todos.filter(t => t.id !== id);
 
   saveTodos();
 
+  return true;
+};
+
+function handleDeleteClick(id){
+  const updated = deleteTodo(id);
+
+  if (!updated) return;
+
+  showTodos();
   showPendingTasks();
-  showNotification('The task has been successfully deleted', 'success');
+  showNotification('The task has been deleted successfully', 'success');
 };
 
 function clearTasks(){
@@ -290,10 +299,8 @@ container.addEventListener('click', (e)=> {
     toggleTodo(todoId);
   }
   else if (target.classList.contains('delete-btn')){
-    removeTask(todoId);
+    handleDeleteClick(todoId);
   }
-
-  showTodos();
 });
 
 filterBtns.forEach(btn => {
