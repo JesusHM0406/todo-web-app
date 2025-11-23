@@ -10,6 +10,7 @@ const taskCount = document.getElementById('taskCount');
 const todoInput = document.getElementById('taskInput');
 const addBtn = document.getElementById('addBtn');
 const filterBtns = document.querySelectorAll('.filter-btn');
+const filterContainer = document.querySelector('.content__filter')
 const deleteBtns = document.querySelectorAll('.delete-btn');
 const clearBtn = document.getElementById('clearCompleted');
 const container = document.querySelector('.content__todo-list');
@@ -328,24 +329,25 @@ container.addEventListener('click', (e)=> {
   }
 });
 
-filterBtns.forEach(btn => {
-  let filter = btn.dataset.filter;
+filterContainer.addEventListener('click', (e) => {
+  const target = e.target;
+  const filter = target.dataset.filter;
+
+  if (!filter) return;
 
   if (filter !== 'all' && filter !== 'active' && filter !== 'completed'){
     filter = 'all';
   }
 
-  btn.addEventListener('click',()=>{
-    if(currentFilter === filter) return; // Avoid reloading as it is unnecessary
+  if(currentFilter === filter) return; // Avoid reloading as it is unnecessary
 
-    currentFilter = filter;
+  currentFilter = filter;
 
-    filterBtns.forEach(btn => btn.classList.remove('active'));
+  filterBtns.forEach(btn => btn.classList.remove('active'));
 
-    btn.classList.add('active');
+  target.classList.add('active');
 
-    showTodos();
-  });
+  showTodos();
 });
 
 todoInput.addEventListener('keypress', (e)=>{
