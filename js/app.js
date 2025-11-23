@@ -17,7 +17,7 @@ const togglerBtn = document.getElementById('togglerBtn');
 
 // =========== PRINCIPAL FUNCTIONS =========== //
 
-function genereteId(){
+function generateId(){
   return String(Date.now());
 };
 
@@ -80,11 +80,11 @@ function handleDeleteClick(id){
 };
 
 function clearTasks(){
-  const todoLenght = todos.length;
+  const todoLength = todos.length;
 
   todos = todos.filter(t => t.isCompleted !== true);
 
-  if (todoLenght === todos.length) return;
+  if (todoLength === todos.length) return;
 
   saveTodos();
 
@@ -330,11 +330,11 @@ todoInput.addEventListener('keypress', (e)=>{
 });
 
 clearBtn.addEventListener('click', ()=>{
-  const todoLenght = todos.length;
+  const todoLength = todos.length;
 
   clearTasks();
   
-  if (todoLenght === todos.length) return;
+  if (todoLength === todos.length) return;
 
   showTodos();
 });
