@@ -273,10 +273,18 @@ function showNotification(message, type){
     notification.classList.add('show');
   }, 0);
 
-  notification.innerHTML = `
-    <span class="material-symbols-rounded">${type === 'success' ? 'check_circle' : 'dangerous'}</span>
-    <span class="notification__text">${message}</span>
-  `;
+  const notifIcon = type === 'success' ? 'check_circle' : 'dangerous';
+
+  const notifIconSpan = document.createElement('span');
+  notifIconSpan.classList.add('material-symbols-rounded');
+  notifIconSpan.textContent = notifIcon;
+
+  const notifText = document.createElement('span');
+  notifText.classList.add('notification__text');
+  notifText.textContent = message;
+  
+  notification.appendChild(notifIconSpan);
+  notification.appendChild(notifText);
 
   notifContainer.appendChild(notification);
 
