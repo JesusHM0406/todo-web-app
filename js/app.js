@@ -36,7 +36,7 @@ function createTask(todoName){
     throw new Error('There is already a task with that name');
   }
 
-  const newTodo = { id: genereteId(), name: todoName.trim(), isCompleted: false };
+  const newTodo = { id: generateId(), name: todoName.trim(), isCompleted: false };
 
   todos.push(newTodo);
   saveTodos();
@@ -113,14 +113,30 @@ function showTodos(){
   }
 
   filteredTodos.forEach(t =>{
+    const { isCompleted, id, name } = t;
+
     const liItem = document.createElement('li');
     liItem.classList.add('content__todo-item');
 
-    liItem.innerHTML = `
-      <input type="checkbox" name="taskCheckbox" class="task-checkbox" ${t.isCompleted ? 'checked' : ''} data-id="${t.id}">
-      <span class="todo__text">${t.name}</span>
-      <button class="delete-btn" data-id="${t.id}">Delete</button>
-    `;
+    // All this is to clean the data and avoid problems with code injection
+    const checkbox = document.createElement('input');
+    checkbox.setAttribute('type', 'checkbox');
+    checkbox.classList.add('task-checkbox');
+    if (isCompleted) checkbox.setAttribute('checked', 'true');
+    checkbox.dataset.id = id;
+
+    const todoText = document.createElement('span');
+    todoText.classList.add('todo__text');
+    todoText.textContent = name;
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.classList.add('delete-btn');
+    deleteBtn.dataset.id = id;
+    deleteBtn.textContent = 'Delete';
+    
+    liItem.appendChild(checkbox);
+    liItem.appendChild(todoText);
+    liItem.appendChild(deleteBtn);
 
     fragment.appendChild(liItem);
   });
