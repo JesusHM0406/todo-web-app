@@ -21,37 +21,40 @@ function genereteId(){
   return String(Date.now());
 };
 
-function addTask(){
-  const todoName = todoInput.value;
-
+function createTask(todoName){
   if (todoName.trim() === '') {
-    showNotification('Cannot add an empty task', 'error');
-    return;
+    throw new Error('Cannot add an empty task');
   }
 
   if (typeof todoName !== 'string') {
-    showNotification('Please use text to add a task', 'error');
-    return;
+    throw new Error('Please use text to add a task');
   }
 
   const todoExists = todos.some(t => t.name === todoName.trim());
 
   if (todoExists) {
-    showNotification('There is already a task with that name', 'error');
-    return;
+    throw new Error('There is already a task with that name');
   }
 
   const newTodo = { id: genereteId(), name: todoName.trim(), isCompleted: false };
 
   todos.push(newTodo);
-
   saveTodos();
+};
 
-  todoInput.value = '';
+function handleAddTask(){
+  const todoName = todoInput.value;
 
+  try{
+    createTask(todoName);
 
-  showPendingTasks();
-  showNotification('The task has been successfully added', 'success');
+    todoInput.value = '';
+    showTodos();
+    showPendingTasks();
+    showNotification('The task has been successfully added', 'success');
+  } catch (e){
+    showNotification(e.message, 'error');
+  }
 };
 
 function removeTask(id){
@@ -271,10 +274,7 @@ function toggleTheme(){
 
 // =========== EVENT LISTENERS =========== //
 
-addBtn.addEventListener('click', ()=>{
-  addTask();
-  showTodos();
-});
+addBtn.addEventListener('click', handleAddTask);
 
 container.addEventListener('click', (e)=> {
   const target = e.target;
@@ -318,8 +318,7 @@ filterBtns.forEach(btn => {
 
 todoInput.addEventListener('keypress', (e)=>{
   if (e.key === 'Enter'){
-    addTask();
-    showTodos();
+    handleAddTask();
   }
 });
 
