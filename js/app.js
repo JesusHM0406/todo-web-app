@@ -85,12 +85,22 @@ function clearTasks(){
 
   todos = todos.filter(t => t.isCompleted !== true);
 
-  if (todoLength === todos.length) return;
+  if (todoLength === todos.length) return false;
 
   saveTodos();
+
+  return true;
+};
+
+function handleClearTasksClick(){
+  const updated = clearTasks();
+
+  if (!updated) return;
+
+  showTodos();
   showPendingTasks();
   showNotification('The completed tasks have been succesfully deleted', 'success');
-};
+}
 
 function showTodos(){
   if (todos.length === 0){
@@ -356,15 +366,7 @@ todoInput.addEventListener('keypress', (e)=>{
   }
 });
 
-clearBtn.addEventListener('click', ()=>{
-  const todoLength = todos.length;
-
-  clearTasks();
-  
-  if (todoLength === todos.length) return;
-
-  showTodos();
-});
+clearBtn.addEventListener('click', handleClearTasksClick);
 
 togglerBtn.addEventListener('click', ()=>{
   toggleTheme();
