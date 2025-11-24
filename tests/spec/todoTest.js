@@ -1,5 +1,5 @@
 import { setFilterForTest } from "../../js/events.js";
-import { clearTasks, createTask, deleteTodo, getFilteredTodos, loadTodos, todos, toggleTodo } from "../../js/todo.js";
+import { clearTasks, createTask, deleteTodo, getFilteredTodos, loadTodos, saveTodos, todos, toggleTodo } from "../../js/todo.js";
 
 describe('createTask', ()=>{
   beforeEach(()=>{
@@ -127,7 +127,7 @@ describe('getFilteredTodos', ()=>{
   it('returns 1 task when filter is "active"', ()=>{
     setFilterForTest('active');
 
-    const result = getFilteredTodos()
+    const result = getFilteredTodos();
 
     expect(result.length).toEqual(1);
     expect(result).toEqual([
@@ -149,5 +149,24 @@ describe('getFilteredTodos', ()=>{
 
   afterAll(()=>{
     setFilterForTest('all');
+  });
+});
+
+describe('saveTodos', ()=>{
+  it('calls localStorage.setItem() with the correct values', ()=>{
+    spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify([
+      { id: '123', name: 'todo name', isCompleted: false },
+      { id: '321', name: 'name todo', isCompleted: false }
+    ]));
+    spyOn(localStorage, 'setItem');
+    loadTodos();
+
+    saveTodos();
+
+    expect(localStorage.setItem).toHaveBeenCalledTimes(1);
+    expect(localStorage.setItem).toHaveBeenCalledWith('todos', JSON.stringify([
+      { id: '123', name: 'todo name', isCompleted: false },
+      { id: '321', name: 'name todo', isCompleted: false }
+    ]));
   });
 });
