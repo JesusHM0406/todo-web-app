@@ -1,4 +1,5 @@
-import { clearTasks, createTask, deleteTodo, loadTodos, todos, toggleTodo } from "../../js/todo.js";
+import { setFilterForTest } from "../../js/events.js";
+import { clearTasks, createTask, deleteTodo, getFilteredTodos, loadTodos, todos, toggleTodo } from "../../js/todo.js";
 
 describe('createTask', ()=>{
   beforeEach(()=>{
@@ -96,5 +97,57 @@ describe('clearTasks', ()=>{
     expect(clearTasks()).toEqual(true);
     expect(todos.length).toEqual(1);
     expect(todos[0].id).toEqual('321')
+  });
+});
+
+describe('getFilteredTodos', ()=>{
+  beforeEach(()=>{
+    spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify([
+      { id: '123', name: 'todo name', isCompleted: true },
+      { id: '321', name: 'name todo', isCompleted: false },
+      { id: '456', name: 'new todo', isCompleted: true }
+    ]));
+    spyOn(localStorage, 'setItem');
+    loadTodos();
+  });
+
+  it('returns 3 tasks when filter is "all"', ()=>{
+    setFilterForTest('all');
+
+    const result = getFilteredTodos()
+
+    expect(result.length).toEqual(3);
+    expect(result).toEqual([
+      { id: '123', name: 'todo name', isCompleted: true },
+      { id: '321', name: 'name todo', isCompleted: false },
+      { id: '456', name: 'new todo', isCompleted: true }
+    ]);
+  });
+
+  it('returns 1 task when filter is "active"', ()=>{
+    setFilterForTest('active');
+
+    const result = getFilteredTodos()
+
+    expect(result.length).toEqual(1);
+    expect(result).toEqual([
+      { id: '321', name: 'name todo', isCompleted: false }
+    ]);
+  });
+
+  it('returns 2 tasks when filter is "completed"', ()=>{
+    setFilterForTest('completed');
+
+    const result = getFilteredTodos()
+
+    expect(result.length).toEqual(2);
+    expect(result).toEqual([
+      { id: '123', name: 'todo name', isCompleted: true },
+      { id: '456', name: 'new todo', isCompleted: true }
+    ]);
+  });
+
+  afterAll(()=>{
+    setFilterForTest('all');
   });
 });

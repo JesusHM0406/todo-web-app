@@ -21,6 +21,15 @@ let container = null;
 
 // =========== FUNCTIONS =========== //
 
+export function setFilterForTest(filter){
+  if(['all', 'active', 'completed'].includes(filter)){
+    currentFilter = filter;
+    return true;
+  }
+
+  return false;
+};
+
 export function handleAddTask(){
   const todoName = todoInput.value;
 
