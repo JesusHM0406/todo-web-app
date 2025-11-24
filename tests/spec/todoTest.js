@@ -1,4 +1,4 @@
-import { createTask, deleteTodo, loadTodos, todos } from "../../js/todo.js";
+import { createTask, deleteTodo, loadTodos, todos, toggleTodo } from "../../js/todo.js";
 
 describe('createTask', ()=>{
   beforeEach(()=>{
@@ -49,5 +49,25 @@ describe('deleteTodo', ()=>{
 
   it("returns false if the id doesn't exists in the todo list", ()=>{
     expect(deleteTodo('ok')).toEqual(false);
+  });
+});
+
+describe('toggleTodo', ()=>{
+  beforeEach(()=>{
+    spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify([
+      { id: '123', name: 'todo name', isCompleted: false },
+      { id: '321', name: 'name todo', isCompleted: false }
+    ]));
+    spyOn(localStorage, 'setItem');
+    loadTodos();
+  });
+
+  it('returns true if it updates the task', ()=>{
+    expect(toggleTodo('123')).toEqual(true);
+    expect(todos[0].isCompleted).toEqual(true);
+  });
+
+  it("returns false if the id doesn't exists in the todo list", ()=>{
+    expect(toggleTodo('345')).toEqual(false);
   });
 });
