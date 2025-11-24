@@ -1,4 +1,4 @@
-import { createTask, deleteTodo, loadTodos, todos, toggleTodo } from "../../js/todo.js";
+import { clearTasks, createTask, deleteTodo, loadTodos, todos, toggleTodo } from "../../js/todo.js";
 
 describe('createTask', ()=>{
   beforeEach(()=>{
@@ -69,5 +69,32 @@ describe('toggleTodo', ()=>{
 
   it("returns false if the id doesn't exists in the todo list", ()=>{
     expect(toggleTodo('345')).toEqual(false);
+  });
+});
+
+describe('clearTasks', ()=>{
+  it('returns false if no task has been completed', ()=>{
+    spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify([
+      { id: '123', name: 'todo name', isCompleted: false },
+      { id: '321', name: 'name todo', isCompleted: false }
+    ]));
+    spyOn(localStorage, 'setItem');
+    loadTodos();
+
+    expect(clearTasks()).toEqual(false);
+    expect(todos.length).toEqual(2);
+  });
+
+  it("returns true if completed tasks are deleted", ()=>{
+    spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify([
+      { id: '123', name: 'todo name', isCompleted: true },
+      { id: '321', name: 'name todo', isCompleted: false }
+    ]));
+    spyOn(localStorage, 'setItem');
+    loadTodos();
+    
+    expect(clearTasks()).toEqual(true);
+    expect(todos.length).toEqual(1);
+    expect(todos[0].id).toEqual('321')
   });
 });
