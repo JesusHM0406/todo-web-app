@@ -1,6 +1,6 @@
 // =========== IMPORTS =========== //
 
-import { createTask, deleteTodo, clearTasks, toggleTodo } from "./todo.js";
+import { todoAPI } from "./todo.js";
 import { showTodos, showPendingTasks } from "./app-ui.js";
 import { showNotification } from "./notifications.js";
 import { toggleTheme } from "./theme.js";
@@ -30,23 +30,27 @@ export function setFilterForTest(filter){
   return false;
 };
 
-export function handleAddTask(){
+export function handleAddTask(createFunc = todoAPI.createTask,
+  showFunc = showTodos, 
+  showPendingFunc = showPendingTasks,
+  showNotifFunc = showNotification
+){
   const todoName = todoInput.value;
 
   try{
-    createTask(todoName);
+    createFunc(todoName);
 
     todoInput.value = '';
-    showTodos();
-    showPendingTasks();
-    showNotification('The task has been successfully added', 'success');
+    showFunc();
+    showPendingFunc();
+    showNotifFunc('The task has been successfully added', 'success');
   } catch (e){
-    showNotification(e.message, 'error');
+    showNotifFunc(e.message, 'error');
   }
 };
 
 export function handleDeleteClick(id){
-  const updated = deleteTodo(id);
+  const updated = todoAPI.deleteTodo(id);
 
   if (!updated) return;
 
@@ -56,7 +60,7 @@ export function handleDeleteClick(id){
 };
 
 export function handleClearTasksClick(){
-  const updated = clearTasks();
+  const updated = todoAPI.clearTasks();
 
   if (!updated) return;
 
@@ -66,7 +70,7 @@ export function handleClearTasksClick(){
 }
 
 function handleToggleCompletedClick(id){
-  const updated = toggleTodo(id);
+  const updated = todoAPI.toggleTodo(id);
 
   if (!updated) return;
 
@@ -136,4 +140,4 @@ export function atachEventListeners() {
   togglerBtn.addEventListener('click', ()=>{
     toggleTheme();
   });
-}
+};

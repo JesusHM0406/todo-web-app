@@ -100,3 +100,14 @@ export function loadTodos(){
     todos = [];
   }
 };
+
+export const todoAPI = {
+  generateId,
+  createTask, 
+  deleteTodo, 
+  clearTasks, 
+  toggleTodo, 
+  getFilteredTodos, 
+  saveTodos, 
+  loadTodos
+};
