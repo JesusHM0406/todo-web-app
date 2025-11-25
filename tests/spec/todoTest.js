@@ -170,3 +170,25 @@ describe('saveTodos', ()=>{
     ]));
   });
 });
+
+describe('loadTodos', ()=>{
+  it('returns the todos JSON if the data is correct', ()=>{
+    spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify([
+      { id: '123', name: 'todo name', isCompleted: false },
+      { id: '321', name: 'name todo', isCompleted: false }
+    ]));
+    loadTodos();
+
+    expect(todos).toEqual([
+      { id: '123', name: 'todo name', isCompleted: false },
+      { id: '321', name: 'name todo', isCompleted: false }
+    ]);
+  });
+
+  it('returns an empty array if the data is invalid', ()=>{
+    spyOn(localStorage, 'getItem').and.returnValue('hello');
+    loadTodos();
+
+    expect(todos).toEqual([]);
+  });
+});
