@@ -1,4 +1,4 @@
-import { atachEventListeners, handleAddTask } from "../../js/events.js";
+import { atachEventListeners, handleAddTask, handleDeleteClick } from "../../js/events.js";
 
 const testsContainer = document.querySelector('.tests');
 
@@ -37,7 +37,7 @@ describe('handleAddTask', ()=>{
     expect(showNotifFunc).toHaveBeenCalledWith('The task has been successfully added', 'success');
   });
 
-  it('all notification and NOT call view functions if logic fails', ()=>{
+  it('call notification and NOT call view functions if logic fails', ()=>{
     createFunc.and.throwError('There is already a task with that name');
     
     handleAddTask(createFunc, showFunc, showPendingFunc, showNotifFunc);
@@ -47,6 +47,45 @@ describe('handleAddTask', ()=>{
     expect(showPendingFunc).not.toHaveBeenCalled();
     expect(showNotifFunc).toHaveBeenCalledTimes(1);
     expect(showNotifFunc).toHaveBeenCalledWith('There is already a task with that name', 'error');
+  });
+
+  afterAll(()=>{
+    testsContainer.innerHTML = '';
+  });
+});
+
+describe('handleDeleteClick', ()=>{
+  let deleteFunc, showFunc, showPendingFunc, showNotifFunc;
+
+  beforeEach(()=>{
+    deleteFunc = jasmine.createSpy('deleteFunc');
+    showFunc = jasmine.createSpy('showFunc');
+    showPendingFunc = jasmine.createSpy('showPendingFunc');
+    showNotifFunc = jasmine.createSpy('showNotifFunc');
+  });
+
+  it('call the Logic and View functions after the task is successfully deleted', ()=>{
+    deleteFunc.and.returnValue(true);
+
+    handleDeleteClick('123', deleteFunc, showFunc, showPendingFunc, showNotifFunc);
+
+    expect(deleteFunc).toHaveBeenCalledTimes(1);
+    expect(deleteFunc).toHaveBeenCalledWith('123');
+    expect(showFunc).toHaveBeenCalledTimes(1);
+    expect(showPendingFunc).toHaveBeenCalledTimes(1);
+    expect(showNotifFunc).toHaveBeenCalledTimes(1);
+    expect(showNotifFunc).toHaveBeenCalledWith('The task has been deleted successfully', 'success');
+  });
+
+  it('do nothing if logic fails', ()=>{
+    deleteFunc.and.returnValue(false);
+    
+    handleDeleteClick('123', deleteFunc, showFunc, showPendingFunc, showNotifFunc);
+
+    expect(deleteFunc).toHaveBeenCalledTimes(1);
+    expect(showFunc).not.toHaveBeenCalled();
+    expect(showPendingFunc).not.toHaveBeenCalled();
+    expect(showNotifFunc).not.toHaveBeenCalled();
   });
 
   afterAll(()=>{
