@@ -1,4 +1,4 @@
-import { atachEventListeners, handleAddTask, handleDeleteClick } from "../../js/events.js";
+import { atachEventListeners, handleAddTask, handleClearTasksClick, handleDeleteClick } from "../../js/events.js";
 
 const testsContainer = document.querySelector('.tests');
 
@@ -87,8 +87,38 @@ describe('handleDeleteClick', ()=>{
     expect(showPendingFunc).not.toHaveBeenCalled();
     expect(showNotifFunc).not.toHaveBeenCalled();
   });
+});
 
-  afterAll(()=>{
-    testsContainer.innerHTML = '';
+describe('handleClearTasksClick', ()=>{
+  let clearFunc, showFunc, showPendingFunc, showNotifFunc;
+
+  beforeEach(()=>{
+    clearFunc = jasmine.createSpy('clearFunc');
+    showFunc = jasmine.createSpy('showFunc');
+    showPendingFunc = jasmine.createSpy('showPendingFunc');
+    showNotifFunc = jasmine.createSpy('showNotifFunc');
+  });
+
+  it('call the Logic and View functions after the completed task are successfully deleted', ()=>{
+    clearFunc.and.returnValue(true);
+
+    handleClearTasksClick(clearFunc, showFunc, showPendingFunc, showNotifFunc);
+
+    expect(clearFunc).toHaveBeenCalledTimes(1);
+    expect(showFunc).toHaveBeenCalledTimes(1);
+    expect(showPendingFunc).toHaveBeenCalledTimes(1);
+    expect(showNotifFunc).toHaveBeenCalledTimes(1);
+    expect(showNotifFunc).toHaveBeenCalledWith('The completed tasks have been succesfully deleted', 'success');
+  });
+
+  it('do nothing if logic fails', ()=>{
+    clearFunc.and.returnValue(false);
+    
+    handleClearTasksClick(clearFunc, showFunc, showPendingFunc, showNotifFunc);
+
+    expect(clearFunc).toHaveBeenCalledTimes(1);
+    expect(showFunc).not.toHaveBeenCalled();
+    expect(showPendingFunc).not.toHaveBeenCalled();
+    expect(showNotifFunc).not.toHaveBeenCalled();
   });
 });
