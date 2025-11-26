@@ -64,15 +64,19 @@ export function handleDeleteClick(
   showNotifFunc('The task has been deleted successfully', 'success');
 };
 
-export function handleClearTasksClick(){
-  const updated = todoAPI.clearTasks();
+export function handleClearTasksClick(
+  clearFunc = todoAPI.clearTasks, 
+  showFunc = showTodos, 
+  showPendingFunc = showPendingTasks, 
+  showNotifFunc = showNotification){
+  const updated = clearFunc();
 
   if (!updated) return;
 
-  showTodos();
-  showPendingTasks();
-  showNotification('The completed tasks have been succesfully deleted', 'success');
-}
+  showFunc();
+  showPendingFunc();
+  showNotifFunc('The completed tasks have been succesfully deleted', 'success');
+};
 
 function handleToggleCompletedClick(id){
   const updated = todoAPI.toggleTodo(id);
