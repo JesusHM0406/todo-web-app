@@ -1,4 +1,4 @@
-import { atachEventListeners, handleAddTask, handleClearTasksClick, handleDeleteClick } from "../../js/events.js";
+import { atachEventListeners, handleAddTask, handleClearTasksClick, handleDeleteClick, handleToggleCompletedClick } from "../../js/events.js";
 
 const testsContainer = document.querySelector('.tests');
 
@@ -120,5 +120,33 @@ describe('handleClearTasksClick', ()=>{
     expect(showFunc).not.toHaveBeenCalled();
     expect(showPendingFunc).not.toHaveBeenCalled();
     expect(showNotifFunc).not.toHaveBeenCalled();
+  });
+});
+
+describe('handleToggleCompletedClick', ()=>{
+  let toggleFunc, showFunc;
+
+  beforeEach(()=>{
+    toggleFunc = jasmine.createSpy('toggleFunc');
+    showFunc = jasmine.createSpy('showFunc');
+  });
+
+  it('call the Logic and View functions after the task is successfully deleted', ()=>{
+    toggleFunc.and.returnValue(true);
+
+    handleToggleCompletedClick('123', toggleFunc, showFunc);
+
+    expect(toggleFunc).toHaveBeenCalledTimes(1);
+    expect(toggleFunc).toHaveBeenCalledWith('123');
+    expect(showFunc).toHaveBeenCalledTimes(1);
+  });
+
+  it('do nothing if logic fails', ()=>{
+    toggleFunc.and.returnValue(false);
+    
+    handleToggleCompletedClick('123', toggleFunc, showFunc);
+
+    expect(toggleFunc).toHaveBeenCalledTimes(1);
+    expect(showFunc).not.toHaveBeenCalled();
   });
 });

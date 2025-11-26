@@ -78,15 +78,15 @@ export function handleClearTasksClick(
   showNotifFunc('The completed tasks have been succesfully deleted', 'success');
 };
 
-function handleToggleCompletedClick(
+export function handleToggleCompletedClick(
   id, 
   toggleFunc = todoAPI.toggleTodo, 
   showFunc = showTodos){
-  const updated = todoAPI.toggleTodo(id);
+  const updated = toggleFunc(id);
 
   if (!updated) return;
 
-  showTodos();
+  showFunc();
 };
 
 // =========== EVENT LISTENERS =========== //
