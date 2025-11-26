@@ -1,4 +1,6 @@
-import { atachEventListeners, handleAddTask, handleClearTasksClick, handleDeleteClick, handleToggleCompletedClick } from "../../js/events.js";
+import { initializeUISelectors } from "../../js/app-ui.js";
+import { atachEventListeners, currentFilter, handleAddTask, handleClearTasksClick, handleDeleteClick, handleToggleCompletedClick } from "../../js/events.js";
+import { loadTodos, todoAPI } from "../../js/todo.js";
 
 const testsContainer = document.querySelector('.tests');
 
@@ -8,12 +10,12 @@ describe('handleAddTask', ()=>{
 
   testsContainer.innerHTML = `
     <input type="text" id="taskInput" value="New Task">
-    <button id="addBtn">
+    <button id="addBtn"></button>
     <div class="content__filter">
-      <button class="filter-btn">
+      <button class="filter-btn"></button>
     </div>
-    <button id="clearCompleted">
-    <button id="togglerBtn">
+    <button id="clearCompleted"></button>
+    <button id="togglerBtn"></button>
     <div class="content__todo-list"></div>
   `;
 
@@ -148,5 +150,57 @@ describe('handleToggleCompletedClick', ()=>{
 
     expect(toggleFunc).toHaveBeenCalledTimes(1);
     expect(showFunc).not.toHaveBeenCalled();
+  });
+});
+
+describe('filterEvents', ()=>{
+  const testsContainer = document.querySelector('.tests');
+
+  beforeAll(()=>{
+    testsContainer.innerHTML = `
+      <div id="taskCount"></div>
+      <input type="text" id="taskInput" value="New Task">
+      <button id="addBtn"></button>
+      <div class="content__filter">
+        <button class="filter-btn active" data-filter="all"></button>
+        <button class="filter-btn" data-filter="active"></button>
+        <button class="filter-btn" data-filter="completed"></button>
+      </div>
+      <button id="clearCompleted"></button>
+      <button id="togglerBtn"></button>
+      <div class="content__todo-list"></div>
+    `;
+
+    atachEventListeners();
+    initializeUISelectors()
+
+    spyOn(localStorage, 'getItem').and.returnValue(JSON.stringify([
+      { id: '123', name: 'todo name', isCompleted: false },
+      { id: '321', name: 'name todo', isCompleted: false },
+      { id: '456', name: 'new todo', isCompleted: false },
+      { id: '654', name: 'todo new', isCompleted: true },
+    ]));
+    loadTodos();
+  });
+
+  it('changes the current filter and transfer "active" class to the correct buton', ()=>{
+    expect(currentFilter).toEqual('all');
+
+    const clickEvent = new MouseEvent('click', { bubbles: true });
+
+    const btn = document.querySelector('[data-filter="active"]');
+    const btnAll = document.querySelector('[data-filter="all"]');
+    const btnCompleted = document.querySelector('[data-filter="completed"]');
+
+    btn.dispatchEvent(clickEvent);
+
+    expect(currentFilter).toEqual('active');
+    expect(btn.classList).toContain('active');
+    expect(btnAll.classList).not.toContain('active');
+    expect(btnCompleted.classList).not.toContain('active');
+  });
+
+  afterAll(()=>{
+    testsContainer.innerHTML = '';
   });
 });

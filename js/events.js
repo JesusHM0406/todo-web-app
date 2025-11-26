@@ -121,10 +121,11 @@ export function atachEventListeners() {
   });
 
   filterContainer.addEventListener('click', (e) => {
-    const target = e.target;
-    const filter = target.dataset.filter;
+    const filterBtn = e.target.closest('.filter-btn');
 
-    if (!filter) return;
+    if (!filterBtn) return;
+
+    const filter = filterBtn.dataset.filter;
 
     if (filter !== 'all' && filter !== 'active' && filter !== 'completed'){
       filter = 'all';
@@ -136,7 +137,7 @@ export function atachEventListeners() {
 
     filterBtns.forEach(btn => btn.classList.remove('active'));
 
-    target.classList.add('active');
+    filterBtn.classList.add('active');
 
     showTodos();
   });
