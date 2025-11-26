@@ -49,14 +49,19 @@ export function handleAddTask(createFunc = todoAPI.createTask,
   }
 };
 
-export function handleDeleteClick(id){
-  const updated = todoAPI.deleteTodo(id);
+export function handleDeleteClick(
+  id, 
+  deleteFunc = todoAPI.deleteTodo, 
+  showFunc = showTodos, 
+  showPendingFunc = showPendingTasks, 
+  showNotifFunc = showNotification){
+  const updated = deleteFunc(id);
 
   if (!updated) return;
 
-  showTodos();
-  showPendingTasks();
-  showNotification('The task has been deleted successfully', 'success');
+  showFunc();
+  showPendingFunc();
+  showNotifFunc('The task has been deleted successfully', 'success');
 };
 
 export function handleClearTasksClick(){
