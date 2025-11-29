@@ -1,4 +1,3 @@
-import { setFilterForTest } from "../../js/events.js";
 import { clearTasks, createTask, deleteTodo, getFilteredTodos, loadTodos, saveTodos, todos, toggleTodo } from "../../js/todo.js";
 
 describe('createTask', ()=>{
@@ -112,9 +111,7 @@ describe('getFilteredTodos', ()=>{
   });
 
   it('returns 3 tasks when filter is "all"', ()=>{
-    setFilterForTest('all');
-
-    const result = getFilteredTodos()
+    const result = getFilteredTodos('all')
 
     expect(result.length).toEqual(3);
     expect(result).toEqual([
@@ -125,9 +122,7 @@ describe('getFilteredTodos', ()=>{
   });
 
   it('returns 1 task when filter is "active"', ()=>{
-    setFilterForTest('active');
-
-    const result = getFilteredTodos();
+    const result = getFilteredTodos('active');
 
     expect(result.length).toEqual(1);
     expect(result).toEqual([
@@ -136,19 +131,13 @@ describe('getFilteredTodos', ()=>{
   });
 
   it('returns 2 tasks when filter is "completed"', ()=>{
-    setFilterForTest('completed');
-
-    const result = getFilteredTodos()
+    const result = getFilteredTodos('completed')
 
     expect(result.length).toEqual(2);
     expect(result).toEqual([
       { id: '123', name: 'todo name', isCompleted: true },
       { id: '456', name: 'new todo', isCompleted: true }
     ]);
-  });
-
-  afterAll(()=>{
-    setFilterForTest('all');
   });
 });
 

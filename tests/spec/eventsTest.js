@@ -1,6 +1,7 @@
 import { initializeUISelectors } from "../../js/app-ui.js";
-import { atachEventListeners, currentFilter, handleAddTask, handleClearTasksClick, handleDeleteClick, handleToggleCompletedClick } from "../../js/events.js";
-import { loadTodos, todoAPI } from "../../js/todo.js";
+import { atachEventListeners, handleAddTask, handleClearTasksClick, handleDeleteClick, handleToggleCompletedClick } from "../../js/events.js";
+import { loadTodos} from "../../js/todo.js";
+import { currentFilter } from "../../js/filter.js";
 
 const testsContainer = document.querySelector('.tests');
 
