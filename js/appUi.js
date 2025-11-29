@@ -10,7 +10,7 @@ let taskCount = null;
 
 // =========== UI FUNCTIONS =========== //
 
-export function showTodos(){
+export function showTodos(filter = 'all'){
   if (todos.length === 0){
     container.innerHTML = `
       <li class="empty-todo">The todo list is empty, please add a new task by clicking the add button.</li>
@@ -22,7 +22,7 @@ export function showTodos(){
 
   const fragment = document.createDocumentFragment();
 
-  const filteredTodos = todoAPI.getFilteredTodos(currentFilter);
+  const filteredTodos = todoAPI.getFilteredTodos(filter);
 
   if (filteredTodos.length === 0){
     container.innerHTML = `

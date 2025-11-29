@@ -30,7 +30,7 @@ export function handleAddTask(
     createFunc(todoName);
 
     todoInput.value = '';
-    showFunc();
+    showFunc(currentFilter);
     showPendingFunc();
     showNotifFunc('The task has been successfully added', 'success');
   } catch (e){
@@ -48,7 +48,7 @@ export function handleDeleteClick(
 
   if (!updated) return;
 
-  showFunc();
+  showFunc(currentFilter);
   showPendingFunc();
   showNotifFunc('The task has been deleted successfully', 'success');
 };
@@ -62,7 +62,7 @@ export function handleClearTasksClick(
 
   if (!updated) return;
 
-  showFunc();
+  showFunc(currentFilter);
   showPendingFunc();
   showNotifFunc('The completed tasks have been succesfully deleted', 'success');
 };
@@ -75,7 +75,7 @@ export function handleToggleCompletedClick(
 
   if (!updated) return;
 
-  showFunc();
+  showFunc(currentFilter);
 };
 
 // =========== EVENT LISTENERS =========== //
@@ -130,7 +130,7 @@ export function atachEventListeners() {
 
     filterBtn.classList.add('active');
 
-    showTodos();
+    showTodos(currentFilter);
   });
 
   todoInput.addEventListener('keypress', (e)=>{
