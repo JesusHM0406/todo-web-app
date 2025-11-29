@@ -1,7 +1,7 @@
 // =========== IMPORTS =========== //
 
 import { todoAPI } from "./todo.js";
-import { showTodos, showPendingTasks, initializeUISelectors } from "./app-ui.js";
+import { showTodos, showPendingTasks, initializeUISelectors } from "./appUi.js";
 import { atachEventListeners } from "./events.js";
 import { initializeTheme } from "./theme.js";
 

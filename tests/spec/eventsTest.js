@@ -1,4 +1,4 @@
-import { initializeUISelectors } from "../../js/app-ui.js";
+import { initializeUISelectors } from "../../js/appUi.js";
 import { atachEventListeners, handleAddTask, handleClearTasksClick, handleDeleteClick, handleToggleCompletedClick } from "../../js/events.js";
 import { loadTodos} from "../../js/todo.js";
 import { currentFilter } from "../../js/filter.js";
