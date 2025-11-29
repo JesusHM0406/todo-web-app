@@ -21,6 +21,10 @@ export function createTask(todoName){
     throw new Error('There is already a task with that name');
   }
 
+  if (todoName.length >= 60) {
+    throw new Error('The name is too long, it needs to be shorter than 60 characters');
+  }
+
   const newTodo = { id: generateId(), name: todoName.trim(), isCompleted: false };
 
   todos.push(newTodo);
