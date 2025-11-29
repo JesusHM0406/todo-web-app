@@ -24,7 +24,7 @@ Interactive to-do list web application (To-Do App) built from scratch with HTML,
 
 ## Features
 
-* ✅ Add, edit, and delete tasks
+* ✅ Add and delete tasks
 * 🔄 Toggle task completion
 * 🔍 Filter tasks (All / Active / Completed)
 * 💾 Data persistence with localStorage
