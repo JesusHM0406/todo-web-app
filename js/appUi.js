@@ -26,7 +26,7 @@ export function showTodos(filter = 'all'){
 
   if (filteredTodos.length === 0){
     container.innerHTML = `
-      <li class="empty-todo">There are no tasks with the "${currentFilter}" filter.</li>
+      <li class="empty-todo">There are no tasks with the "${filter}" filter.</li>
     `;
     return;
   }
