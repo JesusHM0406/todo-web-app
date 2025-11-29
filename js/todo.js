@@ -1,5 +1,3 @@
-import { currentFilter } from "./events.js";
-
 export let todos = [];
 
 // =========== PRINCIPAL FUNCTIONS =========== //
@@ -65,12 +63,12 @@ export function toggleTodo(id){
   return true;
 };
 
-export function getFilteredTodos(){
-  if(currentFilter === 'active'){
+export function getFilteredTodos(filter = 'all'){
+  if(filter === 'active'){
     return todos.filter(t => t.isCompleted === false);
   }
 
-  if(currentFilter === 'completed'){
+  if(filter === 'completed'){
     return todos.filter(t => t.isCompleted === true);
   }
 

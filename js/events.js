@@ -4,10 +4,7 @@ import { todoAPI } from "./todo.js";
 import { showTodos, showPendingTasks } from "./app-ui.js";
 import { showNotification } from "./notifications.js";
 import { toggleTheme } from "./theme.js";
-
-// =========== FILTER VARIABLE =========== //
-
-export let currentFilter = 'all';
+import { currentFilter, setFilter } from "./filter.js";
 
 // =========== SELECTORS =========== //
 
@@ -21,16 +18,8 @@ let container = null;
 
 // =========== FUNCTIONS =========== //
 
-export function setFilterForTest(filter){
-  if(['all', 'active', 'completed'].includes(filter)){
-    currentFilter = filter;
-    return true;
-  }
-
-  return false;
-};
-
-export function handleAddTask(createFunc = todoAPI.createTask,
+export function handleAddTask(
+  createFunc = todoAPI.createTask,
   showFunc = showTodos, 
   showPendingFunc = showPendingTasks,
   showNotifFunc = showNotification
@@ -65,7 +54,7 @@ export function handleDeleteClick(
 };
 
 export function handleClearTasksClick(
-  clearFunc = todoAPI.clearTasks, 
+  clearFunc= todoAPI.clearTasks, 
   showFunc = showTodos, 
   showPendingFunc = showPendingTasks, 
   showNotifFunc = showNotification){
@@ -100,7 +89,9 @@ export function atachEventListeners() {
   togglerBtn = document.getElementById('togglerBtn');
   container = document.querySelector('.content__todo-list');
 
-  addBtn.addEventListener('click', handleAddTask);
+  addBtn.addEventListener('click', () => {
+    handleAddTask();
+  });
 
   container.addEventListener('click', (e)=> {
     const target = e.target;
@@ -133,7 +124,7 @@ export function atachEventListeners() {
 
     if(currentFilter === filter) return; // Avoid reloading as it is unnecessary
 
-    currentFilter = filter;
+    setFilter(filter);
 
     filterBtns.forEach(btn => btn.classList.remove('active'));
 
@@ -148,7 +139,9 @@ export function atachEventListeners() {
     }
   });
 
-  clearBtn.addEventListener('click', handleClearTasksClick);
+  clearBtn.addEventListener('click', () => {
+    handleClearTasksClick();
+  });
 
   togglerBtn.addEventListener('click', ()=>{
     toggleTheme();

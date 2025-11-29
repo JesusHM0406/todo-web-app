@@ -1,7 +1,7 @@
 // =========== IMPORTS =========== //
 
-import { todos, getFilteredTodos } from "./todo.js";
-import { currentFilter } from "./events.js";
+import { todos, todoAPI } from "./todo.js";
+import { currentFilter } from "./filter.js";
 
 // =========== SELECTORS =========== //
 
@@ -22,7 +22,7 @@ export function showTodos(){
 
   const fragment = document.createDocumentFragment();
 
-  const filteredTodos = getFilteredTodos();
+  const filteredTodos = todoAPI.getFilteredTodos(currentFilter);
 
   if (filteredTodos.length === 0){
     container.innerHTML = `
